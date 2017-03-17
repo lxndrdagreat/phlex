@@ -7,4 +7,10 @@ Coming soon.
 
 # Usage
 
-Coming soon.
+Running it is as simple as running the CLI tool from your project's directory:
+
+    $ phlex
+    
+# Configuration
+
+

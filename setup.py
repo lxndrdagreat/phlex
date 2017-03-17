@@ -3,7 +3,7 @@ Flexible static HTML builder
 """
 from setuptools import find_packages, setup
 
-dependencies = ['click']
+dependencies = ['click', 'Jinja2', 'pyyaml', 'markdown']
 
 setup(
     name='phlex',

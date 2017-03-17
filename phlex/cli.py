@@ -1,8 +1,8 @@
 import click
 import os
 import json
-from jinja2 import Environment, FileSystemLoader, contextfunction
-from .phlexstructure import PageData, TreeStructure
+from jinja2 import Environment, FileSystemLoader
+from .phlexstructure import TreeStructure
 from .phlexparsers import YAMLDownParser
 
 
