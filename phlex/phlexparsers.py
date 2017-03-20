@@ -62,6 +62,10 @@ class YAMLDownParser(PhlexPageParser):
             else:
                 body_lines.append(line)
 
+        # auto-generate link
+        if 'href' not in self._page.context:
+            self._page.context['href'] = '/'.join([self._page.path_only, self._page.filename + '.html'])
+
         self._body_lines = body_lines
         self._page.context.update(self._context)
 

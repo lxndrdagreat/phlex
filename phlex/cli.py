@@ -2,8 +2,9 @@ import click
 import os
 import json
 from jinja2 import Environment, FileSystemLoader
-from .phlexstructure import TreeStructure
+from .phlexstructure import TreeStructure, PageData, split_path
 from .phlexparsers import YAMLDownParser
+import sys
 
 
 @click.command()
@@ -27,15 +28,12 @@ def main(config, source, templates, default_template, output):
             "OUTPUT": output
         }
 
-    # click.echo('{}'.format(settings))
-
-    tree = TreeStructure(settings['PAGES'])
-    tree.crawl()
-    # tree.print_tree()
-
     page_parsers = {
         '.yd': YAMLDownParser
     }
+
+    tree = TreeStructure(settings['PAGES'])
+    tree.crawl()
 
     if not os.path.exists(settings['OUTPUT']):
         os.makedirs(settings['OUTPUT'])
@@ -51,11 +49,10 @@ def main(config, source, templates, default_template, output):
         for page in bar:
             page.parser.build_page()
             path = list(page.path)
-            del path[0]
-            del path[0]
             del path[-1]
             path.insert(0, settings['OUTPUT'])
             path.append(page.filename + '.html')
+            print("output: {}".format(path))
 
             # get template
             template = env.get_template(page.context['template'] + '.html')

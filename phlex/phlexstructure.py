@@ -19,8 +19,10 @@ def split_path(path):
 
 class PageData(object):
     def __init__(self, path, data):
+        print("final: {}".format(path))
         self.path = split_path(path)
-        self.collection = self.path[-2]
+        self.path_only = os.path.join(*self.path[0:-1]) if len(self.path) > 1 else ''
+        self.collection = self.path[-2] if len(self.path) > 1 else ''
         self.filename = os.path.splitext(self.path[-1])[0]
         self.data = data
         self.file_type = os.path.splitext(path)[1]
@@ -34,6 +36,7 @@ class PageData(object):
 
 class TreeStructure(object):
     def __init__(self, startingpath):
+        self.base_dir = startingpath
         self._pages = []
         self._starting_path = startingpath
         self._structure = None
@@ -87,12 +90,17 @@ class TreeStructure(object):
                 for f in os.listdir(startpath):
                     subfolder = os.path.join(startpath, f)
                     file_folder_dict[os.path.basename(startpath)].append(self._get_structure(subfolder))
-            except:
-                print("No DIR")
+            except Exception as e:
+                print(e)
         else:
             if os.path.splitext(startpath)[1] == '.yd':
+                print("start: {}".format(startpath))
+                base_parts = split_path(self.base_dir)
+                final_parts = split_path(startpath)[len(base_parts):]
+                print("parts: {}".format(final_parts))
+                final_path = os.path.join(*final_parts) if len(final_parts) > 1 else final_parts[0]
                 page_data = TreeStructure.get_page_contents(startpath)
-                page = PageData(startpath, page_data)
+                page = PageData(final_path, page_data)
                 self._pages.append(page)
                 return page
             else:
