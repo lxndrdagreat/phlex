@@ -16,17 +16,18 @@ import sys
 def main(config, source, templates, default_template, output):
     """Flexible static HTML builder"""
 
+    settings = {
+        "PAGES": source,
+        "TEMPLATES": templates,
+        "DEFAULT_TEMPLATE": default_template,
+        "OUTPUT": output
+    }
+
     if config and os.path.exists(config):
         with open(config, 'r') as settings_json_file:
-            settings = json.loads(settings_json_file.read())
-
-    else:
-        settings = {
-            "PAGES": source,
-            "TEMPLATES": templates,
-            "DEFAULT_TEMPLATE": default_template,
-            "OUTPUT": output
-        }
+            setting_file = json.loads(settings_json_file.read())
+            for key, value in setting_file.items():
+                settings[key] = value
 
     page_parsers = {
         '.yd': YAMLDownParser
@@ -52,7 +53,6 @@ def main(config, source, templates, default_template, output):
             del path[-1]
             path.insert(0, settings['OUTPUT'])
             path.append(page.filename + '.html')
-            print("output: {}".format(path))
 
             # get template
             template = env.get_template(page.context['template'] + '.html')

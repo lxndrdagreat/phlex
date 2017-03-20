@@ -19,7 +19,6 @@ def split_path(path):
 
 class PageData(object):
     def __init__(self, path, data):
-        print("final: {}".format(path))
         self.path = split_path(path)
         self.path_only = os.path.join(*self.path[0:-1]) if len(self.path) > 1 else ''
         self.collection = self.path[-2] if len(self.path) > 1 else ''
@@ -94,10 +93,8 @@ class TreeStructure(object):
                 print(e)
         else:
             if os.path.splitext(startpath)[1] == '.yd':
-                print("start: {}".format(startpath))
                 base_parts = split_path(self.base_dir)
                 final_parts = split_path(startpath)[len(base_parts):]
-                print("parts: {}".format(final_parts))
                 final_path = os.path.join(*final_parts) if len(final_parts) > 1 else final_parts[0]
                 page_data = TreeStructure.get_page_contents(startpath)
                 page = PageData(final_path, page_data)
