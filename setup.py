@@ -7,9 +7,9 @@ dependencies = ['click', 'Jinja2', 'pyyaml', 'markdown']
 
 setup(
     name='phlex',
-    version='0.1.0',
+    version='1.0.0',
     url='https://github.com/lxndrdagreat/phlex',
-    license='BSD',
+    license='MIT',
     author='Dan Alexander',
     author_email='lxndrdagreat@gmail.com',
     description='Flexible static HTML builder',
@@ -29,8 +29,8 @@ setup(
         # 'Development Status :: 1 - Planning',
         # 'Development Status :: 2 - Pre-Alpha',
         # 'Development Status :: 3 - Alpha',
-        'Development Status :: 4 - Beta',
-        # 'Development Status :: 5 - Production/Stable',
+        # 'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         # 'Development Status :: 6 - Mature',
         # 'Development Status :: 7 - Inactive',
         'Environment :: Console',
