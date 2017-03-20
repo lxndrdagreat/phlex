@@ -7,14 +7,22 @@ from .phlexparsers import YAMLDownParser
 import sys
 
 
+PHLEX_VERSION = '1.0.0'
+
+
 @click.command()
 @click.option('--config', '-c', default=None, help='Path to configuration file')
 @click.option('--source', '-s', default='{}'.format(os.path.join('src', 'pages')), help='Path to source page files')
 @click.option('--templates', '-t', default='{}'.format(os.path.join('src', 'templates')), help='Path to template files')
 @click.option('--default-template', '-T', default=None, help='Name of default template to use')
 @click.option('--output', '-o', default='{}'.format(os.path.join('dist')), help='Path to put completed files')
-def main(config, source, templates, default_template, output):
+@click.option('--version', is_flag=True)
+def main(config, source, templates, default_template, output, version):
     """Flexible static HTML builder"""
+
+    if version:
+        print("Phlex version {}".format(PHLEX_VERSION))
+        quit()
 
     settings = {
         "PAGES": source,
