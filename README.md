@@ -17,9 +17,9 @@ as part of a [Gulp](https://gulpjs.com/) task.
 
 # Installation
 
-## via pip
+## from pypi
 
-Coming soon.
+    $ pip install phlex
 
 ## pip + github
 
