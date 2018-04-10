@@ -24,7 +24,7 @@ class PhlexPageParser(object):
         pass
 
 
-class YAMLDownParser(PhlexPageParser):
+class LegacyYAMLDownParser(PhlexPageParser):
     def parse_data(self):
         lines = self._page.data.splitlines()
 
@@ -33,26 +33,26 @@ class YAMLDownParser(PhlexPageParser):
         meta_lines = []
         template_lines = []
         for line in lines:
-            line = line.strip()
-            if line == '==>context':
+            line_stripped = line.strip()
+            if line.startswith('==>context'):
                 flag = 'context'
                 continue
-            elif line == '<==context':
+            elif line.startswith('<==context'):
                 flag = None
                 all_meta = yaml.load(os.linesep.join(meta_lines))
                 meta_lines = []
                 self._context.update(all_meta)
                 continue
-            elif line == '==>jinja':
+            elif line.startswith('==>jinja'):
                 flag = 'template'
                 continue
-            elif line == '<==jinja':
+            elif line.startswith('<==jinja'):
                 flag = None
                 template = os.linesep.join(template_lines)
                 template_lines = []
                 temp = Template(template)
                 self._templates.append(temp)
-                body_lines.append("<==jinja:{}==>".format(len(self._templates)-1))
+                body_lines.append(f'<==jinja:{len(self._templates)-1}==>')
                 continue
 
             if flag == 'context':

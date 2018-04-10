@@ -19,6 +19,7 @@ def split_path(path):
 
 class PageData(object):
     def __init__(self, path, data):
+        self.source_path = path
         self.path = split_path(path)
         self.path_only = os.path.join(*self.path[0:-1]) if len(self.path) > 1 else ''
         self.collection = self.path[-2] if len(self.path) > 1 else ''
